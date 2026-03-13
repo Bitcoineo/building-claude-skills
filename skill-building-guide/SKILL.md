@@ -238,6 +238,20 @@ Near-miss negatives are more valuable than obviously-different negatives:
 
 Deliverable: Optimized description with train/test accuracy scores.
 
+## Suite Variant: Multi-Skill Optimization
+
+When optimizing descriptions for 2+ skills that share a domain (a skill suite), the standard per-skill eval is insufficient. Sibling skills create confusable pairs that single-skill evals miss entirely.
+
+**Key differences from single-skill optimization:**
+
+1. **Unified query pool.** Instead of 20 queries per skill (180 total for 9 skills), build one pool where every query is tagged with its expected routing target or "none." This is more efficient (127 queries for 9 skills in practice) and tests cross-skill boundaries automatically.
+2. **Near-miss negatives target siblings.** A "should-NOT-trigger" query for skill A is often a "should-trigger" for skill B. Design 3 near-miss negatives per skill that target the MOST CONFUSABLE sibling -- these are the highest-signal queries in the entire set.
+3. **Identify confusable pairs upfront.** Before writing queries, list every pair of skills that share vocabulary or domain. Stress-test each pair explicitly.
+4. **Confusion matrix over simple accuracy.** Track which skill each query routed to, not just correct/incorrect. A confusion matrix reveals systematic misrouting between specific pairs.
+5. **Cross-referencing negative triggers.** Each skill's description must name adjacent skills in its "Do NOT use for" clause: "Do NOT use for [task] (use /sibling-skill instead)."
+
+Evidence: The gstack suite (9 skills) achieved 96.1% accuracy on 127 queries with zero confusable-pair confusion using this approach. See Module 6, Theory Section 7 for the full methodology.
+
 # Common Pitfalls
 
 For detailed pitfall analysis with symptoms, root causes, and fixes, consult `references/common-pitfalls.md`.

@@ -1,6 +1,6 @@
 # Common Skill-Building Pitfalls
 
-Top 15 pitfalls organized by category, synthesized from real bugs encountered during skill development and common issues from the Anthropic skill-authoring guide.
+Top 16 pitfalls organized by category, synthesized from real bugs encountered during skill development and common issues from the Anthropic skill-authoring guide.
 
 ---
 
@@ -191,6 +191,18 @@ Before generating any output:
 
 **Prevention:** After writing the frontmatter, run `audit_skill.py` which explicitly checks this match. Or simply check: does `basename $(pwd)` equal the value of the `name` field?
 
+### 16. Trigger phrases use only formal task names
+
+**Symptom:** Technical users who know the skill's name trigger it fine, but casual or informal requests don't. "Pre-landing review" works, "look over my changes" doesn't.
+
+**Root cause:** All trigger phrases use formal task names ("pre-landing review", "code review", "run QA suite") but developers in a CLI often speak casually: "look over my changes", "check what I did", "try this out in a browser." The description provides no pattern for Claude to match against informal phrasing.
+
+**Fix:** Include at least one casual phrasing per skill that matches how developers actually talk. For each formal trigger, ask: "would I say this in a Slack message to a teammate?" If not, add the version you would.
+
+**Prevention:** When writing trigger phrases, imagine 5 different developers asking for the skill. At least one should be a junior dev who doesn't know the skill's formal name. Include whatever they would say.
+
+**Evidence:** BUG-013 from the gstack eval -- the only systematic routing gap across 9 skills was casual language falling through to "none" because all trigger phrases used formal vocabulary. Adding "look over my changes" to the review skill fixed the gap.
+
 ---
 
 ## Quick Reference
@@ -212,3 +224,4 @@ Before generating any output:
 | 13 | Undocumented dependencies | Validation | High |
 | 14 | README.md instead of SKILL.md | Packaging | Critical |
 | 15 | Folder/name mismatch | Packaging | Critical |
+| 16 | Formal-only trigger phrases | Undertriggering | Medium |

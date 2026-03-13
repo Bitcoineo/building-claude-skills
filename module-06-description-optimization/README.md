@@ -159,6 +159,14 @@ Description optimization follows an iterative loop. Each iteration proposes a ch
 
 The skill-creator tool automates this loop with `scripts/run_loop.py`. But understanding the manual process is important because you need to interpret the results and sometimes override the automation.
 
+#### Recognizing Irreducible Ambiguity
+
+After ~5 iterations, the remaining errors are often genuinely ambiguous queries -- prompts like "does this look right to you?" or "how should I approach this?" that contain no domain vocabulary at all. These ultra-vague queries cannot be routed to a specific skill without conversation context.
+
+Trying to capture them with broader trigger phrases introduces more false positives than it fixes. A description broad enough to match "does this look right?" will overtrigger on dozens of unrelated prompts.
+
+**Accept the accuracy floor.** For a well-structured description following [WHAT + WHEN + WHEN NOT], the remaining error rate is set by query vagueness, not by skill overlap or description quality. The cost of conservative routing (a vague query falling to "none") is far lower than aggressive overtriggering (the skill firing on unrelated prompts). Stop iterating when the only remaining errors are queries that lack any domain-specific vocabulary.
+
 ---
 
 ### 5. Writing Quality Eval Queries
@@ -199,7 +207,7 @@ For each eval query, ask yourself: "Would a reasonable description get this wron
 
 These practical tips come from the official guide and from common optimization patterns.
 
-**Include specific trigger phrases users would actually say.** Don't guess -- look at how people phrase requests in chat. "What changed since the last release" is a real trigger phrase. "Aggregate commit metadata" is not.
+**Include specific trigger phrases users would actually say.** Don't guess -- look at how people phrase requests in chat. "What changed since the last release" is a real trigger phrase. "Aggregate commit metadata" is not. Critically, include at least one **casual/informal phrasing** alongside formal task names. Developers say "look over my changes" more often than "pre-landing review." For each trigger phrase, ask: "would I say this in a Slack message to a teammate?" If not, add the version you would. Evidence: in the gstack eval (BUG-013), the only systematic routing gap across 9 skills was casual language falling through to "none" because all trigger phrases used formal vocabulary.
 
 **Mention file types if relevant.** If your skill works with specific formats, say so: "Outputs markdown changelogs" or "Parses conventional commit messages." This helps Claude match queries that mention those formats.
 
@@ -225,6 +233,59 @@ description: >-
   custom date/tag ranges, and markdown output. Do NOT use for raw git
   log viewing, writing commit messages, or git workflow configuration.
 ```
+
+---
+
+### 7. Suite-Aware Optimization
+
+When you have 2+ skills sharing a domain -- a skill suite -- the standard 20-query per-skill eval is insufficient. Skills in a suite create **confusable pairs**: two skills whose descriptions share vocabulary and whose intended use cases overlap at the edges. Standard evals test each skill in isolation and miss these cross-skill boundaries entirely.
+
+#### Unified Query Pool
+
+Instead of building independent eval sets per skill, build one query pool where every query is tagged with its expected routing target (a specific skill name, or "none" for queries that should not trigger any skill in the suite).
+
+This is more efficient: for 9 skills, a unified pool of 127 queries provides better coverage than 9 independent 20-query sets (180 queries), because "should-NOT-trigger" queries for skill A naturally serve as "should-trigger" queries for skill B. Every negative does double duty.
+
+#### Near-Miss Negatives Between Siblings
+
+The highest-signal queries in a suite eval are near-miss negatives that target the **most confusable sibling** -- not just a related-but-different task, but the specific adjacent skill users are most likely to confuse.
+
+For each skill, identify the 1-2 closest siblings and write 3 near-miss negatives per skill that stress-test those specific boundaries. These queries should use vocabulary shared between siblings but describe a task that belongs to exactly one.
+
+#### Confusable Pairs
+
+Before writing queries, list every pair of skills that share domain vocabulary. For a code review suite, this might be:
+- `plan-review` ↔ `code-review` (both use "review")
+- `code-review` ↔ `ship` (both involve pre-merge checks)
+- `qa` ↔ `browse` (both involve testing in a browser)
+
+Stress-test each pair with at least 2 queries designed to trigger misrouting. These pairs are where routing breaks.
+
+#### Confusion Matrix as Primary Diagnostic
+
+Simple accuracy (correct/total) hides routing patterns. Replace it with a confusion matrix that shows which skill each query routed to:
+
+```
+                    Routed to:
+Expected:     review  ship  qa   none
+  review        9      1    0    0     ← 1 query misrouted to ship
+  ship          0     10    0    0
+  qa            0      0    9    1     ← 1 query fell to none
+```
+
+This reveals systematic misrouting between specific pairs, which you fix with targeted negative triggers rather than broadening or narrowing the description globally.
+
+#### Worked Example: The Gstack Suite
+
+Applied to 9 skills in the gstack suite:
+- **127 queries** total (vs. 180 with standard per-skill approach)
+- Per skill: 10 should-trigger (3 easy / 4 medium / 3 hard) + 3 near-miss negatives
+- 10 "none" queries for general tasks
+- 6 confusable pairs explicitly stress-tested
+- **Results:** 96.1% overall accuracy, zero confusable-pair confusion, only 1 description change needed
+- The 5 mismatches were all ultra-vague queries with no domain vocabulary -- irreducible ambiguity, not skill overlap
+
+The key insight: once descriptions follow [WHAT + WHEN + WHEN NOT] with cross-referencing negatives, the confusable-pair problem is solved on the first pass. The remaining accuracy gap comes from queries that lack any domain vocabulary at all.
 
 ---
 
@@ -492,6 +553,10 @@ Add an entry to `course-log.md` documenting the optimization process, your train
 5. **Stop after 5 iterations.** The optimization loop has diminishing returns. Most gains happen in iterations 1-3. After 5 iterations, remaining errors are usually genuine edge cases where reasonable people would disagree on whether the skill should trigger. Accept the trade-off and ship.
 
 6. **The eval set is a reusable asset.** The 20 queries you wrote in Exercise 6.1 are not throwaway test cases. They are the regression suite for your description. Every time you update the description in the future, re-run the eval set to check for regressions.
+
+7. **Suite-aware eval with near-miss negatives is the gold standard for multi-skill suites.** When 2+ skills share a domain, a unified query pool with cross-skill near-miss negatives reveals confusable-pair misrouting that per-skill evals miss entirely. The confusion matrix replaces simple accuracy as the primary diagnostic.
+
+8. **Accept irreducible ambiguity.** After 3-5 iterations with a well-structured description, remaining errors are typically ultra-vague queries with no domain vocabulary ("does this look right?"). These set the accuracy floor. Broadening trigger phrases to capture them introduces more false positives than it fixes -- conservative routing to "none" is the correct trade-off.
 
 ---
 
