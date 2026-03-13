@@ -1,0 +1,1207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SEO Strategy Report — {{SITE_DOMAIN}}</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #0a0a0f;
+    --bg-card: rgba(255,255,255,0.03);
+    --bg-card-hover: rgba(255,255,255,0.06);
+    --border: rgba(255,255,255,0.08);
+    --border-hover: rgba(255,255,255,0.15);
+    --text: #e8e8ed;
+    --text-secondary: #8b8b9e;
+    --text-muted: #5a5a6e;
+    --accent: #6366f1;
+    --accent-glow: rgba(99,102,241,0.3);
+    --green: #22c55e;
+    --green-bg: rgba(34,197,94,0.12);
+    --green-border: rgba(34,197,94,0.25);
+    --yellow: #eab308;
+    --yellow-bg: rgba(234,179,8,0.12);
+    --yellow-border: rgba(234,179,8,0.25);
+    --red: #ef4444;
+    --red-bg: rgba(239,68,68,0.12);
+    --red-border: rgba(239,68,68,0.25);
+    --blue: #3b82f6;
+    --blue-bg: rgba(59,130,246,0.12);
+    --orange: #f97316;
+    --orange-bg: rgba(249,115,22,0.12);
+    --orange-border: rgba(249,115,22,0.25);
+    --purple: #a78bfa;
+    --purple-bg: rgba(167,139,250,0.08);
+    --purple-border: rgba(167,139,250,0.15);
+    --radius: 16px;
+    --radius-sm: 10px;
+    --radius-xs: 6px;
+  }
+
+  ::selection { background: var(--accent); color: white; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Ambient background */
+  body::before {
+    content: '';
+    position: fixed;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(ellipse at 20% 50%, rgba(99,102,241,0.06) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 20%, rgba(139,92,246,0.04) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 80%, rgba(59,130,246,0.03) 0%, transparent 50%);
+    z-index: -1;
+    animation: ambientDrift 20s ease-in-out infinite;
+  }
+  @keyframes ambientDrift {
+    0%, 100% { transform: translate(0, 0); }
+    33% { transform: translate(-2%, 1%); }
+    66% { transform: translate(1%, -1%); }
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.2); }
+
+  /* Layout */
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+  /* Header / Hero */
+  .header {
+    padding: 40px 0 0;
+    text-align: center;
+  }
+  .header-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 16px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 20px;
+  }
+  .header-badge .dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--green);
+    box-shadow: 0 0 8px var(--green);
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+  .header h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 42px;
+    font-weight: 700;
+    line-height: 1.15;
+    margin-bottom: 12px;
+    background: linear-gradient(135deg, #fff 0%, #a5a5c0 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .header .subtitle {
+    font-size: 16px;
+    color: var(--text-secondary);
+    margin-bottom: 32px;
+  }
+
+  /* Score Circle with SVG ring */
+  .score-section {
+    display: flex;
+    align-items: center;
+    gap: 48px;
+    margin-bottom: 40px;
+    padding: 40px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    backdrop-filter: blur(20px);
+  }
+  .score-circle-wrap { position: relative; flex-shrink: 0; }
+  .score-circle {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    position: relative;
+  }
+  .score-circle svg {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg);
+  }
+  .score-circle svg circle {
+    fill: none;
+    stroke-width: 6;
+    stroke-linecap: round;
+  }
+  .score-circle svg .bg-ring { stroke: rgba(255,255,255,0.06); }
+  .score-circle svg .progress-ring {
+    stroke: var(--accent);
+    stroke-dasharray: 502;
+    stroke-dashoffset: {{SCORE_DASHOFFSET}};
+    filter: drop-shadow(0 0 6px var(--accent-glow));
+    transition: stroke-dashoffset 1.5s ease-out;
+  }
+  .score-number {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 56px;
+    font-weight: 700;
+    line-height: 1;
+    color: white;
+    position: relative;
+    z-index: 1;
+  }
+  .score-label {
+    font-size: 13px;
+    color: var(--text-secondary);
+    font-weight: 500;
+    position: relative;
+    z-index: 1;
+    margin-top: 4px;
+  }
+  .score-grade {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+    z-index: 1;
+    margin-top: 2px;
+  }
+  .score-details { flex: 1; }
+  .score-details h2 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .score-details p {
+    color: var(--text-secondary);
+    font-size: 15px;
+    line-height: 1.7;
+    margin-bottom: 20px;
+  }
+
+  /* Sub-scores */
+  .sub-scores {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 12px;
+  }
+  .sub-score {
+    padding: 14px 16px;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+  }
+  .sub-score-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+  }
+  .sub-score-value {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+  }
+  .sub-score-bar {
+    height: 3px;
+    border-radius: 2px;
+    background: rgba(255,255,255,0.06);
+    margin-top: 8px;
+    overflow: hidden;
+  }
+  .sub-score-bar-fill {
+    height: 100%;
+    border-radius: 2px;
+    transition: width 1s ease-out;
+  }
+
+  /* Tabs */
+  .tabs {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(10,10,15,0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    padding: 0;
+  }
+  .tabs-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .tabs-inner::-webkit-scrollbar { display: none; }
+  .tab-btn {
+    padding: 16px 24px;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-muted);
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s;
+    position: relative;
+  }
+  .tab-btn:hover { color: var(--text-secondary); }
+  .tab-btn.active {
+    color: var(--text);
+    border-bottom-color: var(--accent);
+  }
+  .tab-btn .tab-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 20px;
+    height: 20px;
+    padding: 0 6px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    font-size: 11px;
+    font-weight: 600;
+    margin-left: 8px;
+    color: var(--text-secondary);
+  }
+  .tab-btn.active .tab-count {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: white;
+  }
+
+  /* Tab Content */
+  .tab-content { display: none; padding: 40px 0 80px; }
+  .tab-content.active { display: block; }
+
+  /* Section titles */
+  .section-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .section-subtitle {
+    color: var(--text-secondary);
+    font-size: 15px;
+    margin-bottom: 24px;
+  }
+
+  /* Stats grid */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 16px;
+    margin-bottom: 40px;
+  }
+  .stat-card {
+    padding: 24px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    text-align: center;
+    transition: border-color 0.2s;
+  }
+  .stat-card:hover { border-color: var(--border-hover); }
+  .stat-value {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 36px;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 4px;
+  }
+  .stat-label {
+    font-size: 13px;
+    color: var(--text-secondary);
+  }
+
+  /* Cards */
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px;
+    margin-bottom: 16px;
+    transition: border-color 0.2s;
+  }
+  .card:hover { border-color: var(--border-hover); }
+  .card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    cursor: pointer;
+  }
+  .card-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  /* Badges */
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 12px;
+    border-radius: 100px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+  }
+  .badge-critical { background: var(--red-bg); color: var(--red); border: 1px solid var(--red-border); }
+  .badge-high { background: var(--orange-bg); color: var(--orange); border: 1px solid var(--orange-border); }
+  .badge-medium { background: var(--yellow-bg); color: var(--yellow); border: 1px solid var(--yellow-border); }
+  .badge-low { background: var(--green-bg); color: var(--green); border: 1px solid var(--green-border); }
+  .badge-pass { background: var(--green-bg); color: var(--green); border: 1px solid var(--green-border); }
+  .badge-warning { background: var(--yellow-bg); color: var(--yellow); border: 1px solid var(--yellow-border); }
+  .badge-fail { background: var(--red-bg); color: var(--red); border: 1px solid var(--red-border); }
+
+  /* Finding items */
+  .finding {
+    padding: 16px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 16px;
+    align-items: start;
+  }
+  .finding:last-child { border-bottom: none; }
+  .finding-status {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-top: 8px;
+  }
+  .finding-status.pass { background: var(--green); box-shadow: 0 0 6px rgba(34,197,94,0.4); }
+  .finding-status.warning { background: var(--yellow); box-shadow: 0 0 6px rgba(234,179,8,0.4); }
+  .finding-status.fail { background: var(--red); box-shadow: 0 0 6px rgba(239,68,68,0.4); }
+  .finding-content h4 {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  .finding-content p {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+  .finding-rec {
+    margin-top: 8px;
+    padding: 10px 14px;
+    background: rgba(99,102,241,0.06);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 var(--radius-xs) var(--radius-xs) 0;
+    font-size: 13px;
+    color: var(--text);
+    line-height: 1.5;
+  }
+
+  /* Collapsible */
+  .collapsible {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    margin-bottom: 12px;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+  .collapsible:hover { border-color: var(--border-hover); }
+  .collapsible-header {
+    padding: 20px 24px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    user-select: none;
+  }
+  .collapsible-header:hover { background: rgba(255,255,255,0.02); }
+  .collapsible-title {
+    font-weight: 600;
+    color: var(--text);
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .collapsible-body {
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.35s ease;
+  }
+  .collapsible.open .collapsible-body {
+    max-height: 5000px;
+  }
+  .collapsible-body-inner {
+    padding: 0 24px 24px;
+  }
+  .collapse-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    color: var(--text-muted);
+    transition: transform 0.3s, background 0.2s;
+    flex-shrink: 0;
+  }
+  .collapsible.open .collapse-icon { transform: rotate(180deg); }
+
+  /* Page table */
+  .page-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 16px;
+  }
+  .page-table th {
+    text-align: left;
+    padding: 12px 16px;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-muted);
+    border-bottom: 1px solid var(--border);
+    font-weight: 600;
+  }
+  .page-table td {
+    padding: 12px 16px;
+    font-size: 14px;
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+    vertical-align: top;
+  }
+  .page-table tr:hover td { background: rgba(255,255,255,0.02); }
+  .page-url {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--accent);
+    word-break: break-all;
+  }
+
+  /* Checklist */
+  .checklist-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+  .checklist-item:last-child { border-bottom: none; }
+  .check-icon {
+    width: 22px;
+    height: 22px;
+    border-radius: 6px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    margin-top: 1px;
+  }
+  .check-icon.pass {
+    background: var(--green-bg);
+    color: var(--green);
+    border: 1px solid var(--green-border);
+  }
+  .check-icon.fail {
+    background: var(--red-bg);
+    color: var(--red);
+    border: 1px solid var(--red-border);
+  }
+  .check-icon.warn {
+    background: var(--yellow-bg);
+    color: var(--yellow);
+    border: 1px solid var(--yellow-border);
+  }
+  .check-text {
+    font-size: 14px;
+    color: var(--text);
+  }
+  .check-text.muted {
+    color: var(--text-secondary);
+  }
+
+  /* Action items */
+  .action-item {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 24px;
+    margin-bottom: 12px;
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    transition: border-color 0.2s;
+  }
+  .action-item:hover { border-color: var(--border-hover); }
+  .action-number {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--accent);
+    flex-shrink: 0;
+    width: 36px;
+    text-align: center;
+    opacity: 0.5;
+  }
+  .action-content { flex: 1; }
+  .action-title {
+    font-weight: 600;
+    color: var(--text);
+    font-size: 15px;
+    margin-bottom: 6px;
+  }
+  .action-desc {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+  .action-impact {
+    margin-top: 8px;
+    font-size: 13px;
+    color: var(--green);
+    font-weight: 500;
+  }
+
+  /* Content clusters */
+  .cluster {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+    margin-bottom: 16px;
+  }
+  .cluster-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600;
+    color: var(--purple);
+    font-size: 16px;
+    margin-bottom: 12px;
+  }
+  .cluster-pages {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .cluster-page {
+    padding: 6px 14px;
+    border-radius: 100px;
+    background: var(--purple-bg);
+    border: 1px solid var(--purple-border);
+    font-size: 13px;
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--text-secondary);
+  }
+  .cluster-page.pillar {
+    background: rgba(167,139,250,0.15);
+    border-color: rgba(167,139,250,0.3);
+    color: var(--purple);
+    font-weight: 600;
+  }
+
+  /* Link matrix */
+  .matrix-grid {
+    display: grid;
+    gap: 2px;
+    font-size: 12px;
+    overflow-x: auto;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .matrix-cell {
+    padding: 8px;
+    text-align: center;
+    border-radius: 4px;
+  }
+  .matrix-cell.linked {
+    background: rgba(99,102,241,0.15);
+    color: var(--accent);
+  }
+  .matrix-cell.self {
+    background: rgba(255,255,255,0.03);
+    color: var(--text-muted);
+  }
+  .matrix-cell.empty {
+    background: rgba(239,68,68,0.05);
+    color: var(--text-muted);
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .header h1 { font-size: 28px; }
+    .score-section { flex-direction: column; text-align: center; padding: 24px; gap: 24px; }
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    .sub-scores { grid-template-columns: repeat(2, 1fr); }
+    .action-item { flex-direction: column; gap: 12px; }
+  }
+
+  /* Print */
+  @media print {
+    .tabs { display: none; }
+    .tab-content { display: block !important; page-break-before: always; }
+    body::before { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="container">
+    <div class="header-badge"><span class="dot"></span> Site-Wide SEO Audit</div>
+    <h1>{{SITE_DOMAIN}}</h1>
+    <p class="subtitle">Comprehensive analysis of {{PAGE_COUNT}} pages — Generated {{REPORT_DATE}}</p>
+  </div>
+</div>
+
+<!-- Score overview (below header, above tabs) -->
+<div class="container" style="padding-top: 0; padding-bottom: 32px;">
+  <div class="score-section">
+    <div class="score-circle-wrap">
+      <div class="score-circle">
+        <svg viewBox="0 0 160 160">
+          <circle class="bg-ring" cx="80" cy="80" r="74"/>
+          <circle class="progress-ring" cx="80" cy="80" r="74"/>
+        </svg>
+        <span class="score-number">{{OVERALL_SCORE}}</span>
+        <span class="score-grade">{{GRADE}}</span>
+        <span class="score-label">Overall Health</span>
+      </div>
+    </div>
+    <div class="score-details">
+      <h2>{{SCORE_HEADLINE}}</h2>
+      <p>{{SCORE_SUMMARY}}</p>
+      <div class="sub-scores">
+        <div class="sub-score">
+          <div class="sub-score-label">Technical</div>
+          <div class="sub-score-value" style="color: {{TECH_SCORE_COLOR}}">{{TECH_SCORE}}</div>
+          <div class="sub-score-bar"><div class="sub-score-bar-fill" style="width:{{TECH_SCORE}}%; background: {{TECH_SCORE_COLOR}}"></div></div>
+        </div>
+        <div class="sub-score">
+          <div class="sub-score-label">Content</div>
+          <div class="sub-score-value" style="color: {{CONTENT_SCORE_COLOR}}">{{CONTENT_SCORE}}</div>
+          <div class="sub-score-bar"><div class="sub-score-bar-fill" style="width:{{CONTENT_SCORE}}%; background: {{CONTENT_SCORE_COLOR}}"></div></div>
+        </div>
+        <div class="sub-score">
+          <div class="sub-score-label">Architecture</div>
+          <div class="sub-score-value" style="color: {{ARCH_SCORE_COLOR}}">{{ARCH_SCORE}}</div>
+          <div class="sub-score-bar"><div class="sub-score-bar-fill" style="width:{{ARCH_SCORE}}%; background: {{ARCH_SCORE_COLOR}}"></div></div>
+        </div>
+        <div class="sub-score">
+          <div class="sub-score-label">Cross-Page</div>
+          <div class="sub-score-value" style="color: {{CROSS_SCORE_COLOR}}">{{CROSS_SCORE}}</div>
+          <div class="sub-score-bar"><div class="sub-score-bar-fill" style="width:{{CROSS_SCORE}}%; background: {{CROSS_SCORE_COLOR}}"></div></div>
+        </div>
+        <div class="sub-score">
+          <div class="sub-score-label">Social & Schema</div>
+          <div class="sub-score-value" style="color: {{SOCIAL_SCORE_COLOR}}">{{SOCIAL_SCORE}}</div>
+          <div class="sub-score-bar"><div class="sub-score-bar-fill" style="width:{{SOCIAL_SCORE}}%; background: {{SOCIAL_SCORE_COLOR}}"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TAB NAVIGATION -->
+<div class="tabs">
+  <div class="tabs-inner">
+    <button class="tab-btn active" onclick="switchTab('executive')">Executive Summary</button>
+    <button class="tab-btn" onclick="switchTab('pages')">Page Breakdown <span class="tab-count">{{PAGE_COUNT}}</span></button>
+    <button class="tab-btn" onclick="switchTab('sitewide')">Site-Wide Issues <span class="tab-count">{{SITEWIDE_ISSUE_COUNT}}</span></button>
+    <button class="tab-btn" onclick="switchTab('technical')">Technical</button>
+    <button class="tab-btn" onclick="switchTab('content')">Content Strategy</button>
+    <button class="tab-btn" onclick="switchTab('linking')">Internal Linking</button>
+    <button class="tab-btn" onclick="switchTab('actions')">Action Plan</button>
+  </div>
+</div>
+
+<!-- ==================== TAB 1: EXECUTIVE SUMMARY ==================== -->
+<div id="tab-executive" class="tab-content active">
+<div class="container">
+
+  <div class="section-title">Executive Summary</div>
+  <div class="section-subtitle">High-level overview of {{SITE_DOMAIN}}'s SEO health and top priorities</div>
+
+  <!-- Quick Stats -->
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-value">{{PAGE_COUNT}}</div>
+      <div class="stat-label">Pages Audited</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">{{CRITICAL_COUNT}}</div>
+      <div class="stat-label">Critical Issues</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">{{HIGH_COUNT}}</div>
+      <div class="stat-label">High Priority</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">{{WARNINGS_COUNT}}</div>
+      <div class="stat-label">Warnings</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">{{AVG_WORD_COUNT}}</div>
+      <div class="stat-label">Avg Word Count</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">{{SCHEMA_COVERAGE}}%</div>
+      <div class="stat-label">Schema Coverage</div>
+    </div>
+  </div>
+
+  <!-- Key Findings -->
+  <div class="card" style="margin-bottom: 24px;">
+    <div class="card-title" style="margin-bottom: 16px;">Key Findings</div>
+    <div style="color: var(--text-secondary); font-size: 15px; line-height: 1.8;">
+      <!-- POPULATE: 3-5 sentences summarizing the most important findings. Be specific.
+           Reference actual numbers: "4 of 12 pages have <200 words", "meta descriptions missing on 60% of pages" -->
+      {{KEY_FINDINGS_PARAGRAPH}}
+    </div>
+  </div>
+
+  <!-- Top 3 Priorities -->
+  <div class="section-title" style="font-size: 18px; margin-top: 32px;">Top 3 Priorities</div>
+  <div class="section-subtitle">The highest-impact actions to take right now</div>
+  <!-- POPULATE: 3 action-item divs for the most critical fixes.
+       <div class="action-item">
+         <div class="action-number">1</div>
+         <div class="action-content">
+           <div class="action-title">[Action title]</div>
+           <div class="action-desc">[What to do]</div>
+           <div class="action-impact">Expected impact: [description]</div>
+         </div>
+         <span class="badge badge-critical">Critical</span>
+       </div>
+  -->
+  {{TOP_3_PRIORITIES}}
+
+</div>
+</div>
+
+<!-- ==================== TAB 2: PAGE-BY-PAGE BREAKDOWN ==================== -->
+<div id="tab-pages" class="tab-content">
+<div class="container">
+
+  <div class="section-title">Page-by-Page Breakdown</div>
+  <div class="section-subtitle">Individual audit results for each crawled page</div>
+
+  <!-- Summary Table -->
+  <div class="card" style="overflow-x: auto; padding: 0;">
+    <table class="page-table">
+      <thead>
+        <tr>
+          <th>Page</th>
+          <th>Title</th>
+          <th>Words</th>
+          <th>H1</th>
+          <th>Meta Desc</th>
+          <th>Schema</th>
+          <th>OG Tags</th>
+          <th>Issues</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- POPULATE: One row per audited page.
+             <tr>
+               <td><span class="page-url">/about</span></td>
+               <td>About Us - Company</td>
+               <td>450</td>
+               <td><span class="badge badge-pass">Pass</span></td>
+               <td><span class="badge badge-fail">Fail</span></td>
+               <td><span class="badge badge-warning">Warn</span></td>
+               <td><span class="badge badge-pass">Pass</span></td>
+               <td>3</td>
+             </tr>
+        -->
+        {{PAGE_TABLE_ROWS}}
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Detailed per-page collapsibles -->
+  <!-- POPULATE: One collapsible per page with detailed findings.
+       <div class="collapsible">
+         <div class="collapsible-header" onclick="this.parentElement.classList.toggle('open')">
+           <span class="collapsible-title">
+             <span class="page-url">/about</span>
+             <span class="badge badge-high">3 issues</span>
+           </span>
+           <span class="collapse-icon">&#9660;</span>
+         </div>
+         <div class="collapsible-body">
+           <div class="collapsible-body-inner">
+             <div class="finding">
+               <div class="finding-status fail"></div>
+               <div class="finding-content">
+                 <h4>Missing meta description</h4>
+                 <p>No meta description tag found. Search engines will auto-generate one from page content.</p>
+                 <div class="finding-rec">Add a meta description of 150-160 characters that includes the page's target keyword.</div>
+               </div>
+               <span class="badge badge-high">High</span>
+             </div>
+             ... more findings ...
+           </div>
+         </div>
+       </div>
+  -->
+  {{PAGE_DETAIL_COLLAPSIBLES}}
+
+</div>
+</div>
+
+<!-- ==================== TAB 3: SITE-WIDE ISSUES ==================== -->
+<div id="tab-sitewide" class="tab-content">
+<div class="container">
+
+  <div class="section-title">Site-Wide Issues</div>
+  <div class="section-subtitle">Cross-cutting concerns that affect multiple pages</div>
+
+  <!-- Duplicate Content & Cannibalization -->
+  <div class="card">
+    <div class="card-title" style="margin-bottom: 16px;">Duplicate Content &amp; Cannibalization</div>
+    <!-- POPULATE: findings about duplicate titles, descriptions, keyword cannibalization.
+         Use finding items:
+         <div class="finding">
+           <div class="finding-status [pass|warning|fail]"></div>
+           <div class="finding-content">
+             <h4>[title]</h4>
+             <p>[description]</p>
+             <div class="finding-rec">[recommendation]</div>
+           </div>
+           <span class="badge badge-[level]">[Level]</span>
+         </div>
+    -->
+    {{DUPLICATE_CONTENT_FINDINGS}}
+  </div>
+
+  <!-- Consistency Issues -->
+  <div class="card">
+    <div class="card-title" style="margin-bottom: 16px;">Consistency Issues</div>
+    {{CONSISTENCY_FINDINGS}}
+  </div>
+
+  <!-- robots.txt & Sitemap -->
+  <div class="card">
+    <div class="card-title" style="margin-bottom: 16px;">Robots.txt &amp; Sitemap</div>
+    {{ROBOTS_SITEMAP_FINDINGS}}
+  </div>
+
+  <!-- Security Headers -->
+  <div class="card">
+    <div class="card-title" style="margin-bottom: 16px;">Security &amp; Server Headers</div>
+    {{SECURITY_HEADERS_FINDINGS}}
+  </div>
+
+</div>
+</div>
+
+<!-- ==================== TAB 4: TECHNICAL ==================== -->
+<div id="tab-technical" class="tab-content">
+<div class="container">
+
+  <div class="section-title">Technical SEO</div>
+  <div class="section-subtitle">Infrastructure, performance indicators, and technical implementation</div>
+
+  <!-- Technical Checklist -->
+  <div class="card">
+    <div class="card-title" style="margin-bottom: 20px;">Implementation Checklist</div>
+    <!-- POPULATE: checklist items for all technical checks.
+         <div class="checklist-item">
+           <div class="check-icon pass">&#10003;</div>
+           <div class="check-text">HTTPS enabled across all pages</div>
+         </div>
+         <div class="checklist-item">
+           <div class="check-icon fail">&#10007;</div>
+           <div class="check-text muted">HSTS header not configured</div>
+         </div>
+    -->
+    {{TECHNICAL_CHECKLIST}}
+  </div>
+
+  <!-- Schema Coverage -->
+  <div class="section-title" style="font-size: 18px; margin-top: 32px;">Schema Markup Strategy</div>
+  <div class="section-subtitle">Current structured data and recommended additions</div>
+  <div class="card" style="overflow-x: auto; padding: 0;">
+    <!-- POPULATE: Table showing current schema per page and recommendations -->
+    {{SCHEMA_STRATEGY}}
+  </div>
+
+  <!-- Performance Indicators -->
+  <div class="section-title" style="font-size: 18px; margin-top: 32px;">Performance Indicators</div>
+  <div class="section-subtitle">Resource counts, image optimization, and loading patterns</div>
+  <!-- POPULATE: finding items about resource counts, image optimization, lazy loading -->
+  {{PERFORMANCE_FINDINGS}}
+
+</div>
+</div>
+
+<!-- ==================== TAB 5: CONTENT STRATEGY ==================== -->
+<div id="tab-content" class="tab-content">
+<div class="container">
+
+  <div class="section-title">Content Strategy</div>
+  <div class="section-subtitle">Content gaps, keyword opportunities, and recommended content clusters</div>
+
+  <!-- Content Health Stats -->
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-value">{{THIN_PAGES}}</div>
+      <div class="stat-label">Thin Content Pages</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">{{STRONG_PAGES}}</div>
+      <div class="stat-label">Strong Content Pages</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">{{TOTAL_WORDS}}</div>
+      <div class="stat-label">Total Word Count</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">{{MISSING_META}}</div>
+      <div class="stat-label">Missing Meta Desc</div>
+    </div>
+  </div>
+
+  <!-- Keyword Map -->
+  <div class="section-title" style="font-size: 18px;">Inferred Keyword Map</div>
+  <div class="section-subtitle">Target keywords per page with cannibalization risk assessment</div>
+  <div class="card" style="overflow-x: auto; padding: 0;">
+    <table class="page-table">
+      <thead>
+        <tr>
+          <th>Page</th>
+          <th>Inferred Target Keyword</th>
+          <th>Title Includes KW</th>
+          <th>H1 Includes KW</th>
+          <th>In First 100 Words</th>
+          <th>Cannibalization Risk</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- POPULATE: One row per page.
+             <tr>
+               <td><span class="page-url">/blog/topic</span></td>
+               <td>topic keyword phrase</td>
+               <td><span class="badge badge-pass">Yes</span></td>
+               <td><span class="badge badge-pass">Yes</span></td>
+               <td><span class="badge badge-fail">No</span></td>
+               <td><span class="badge badge-warning">Medium</span></td>
+             </tr>
+        -->
+        {{KEYWORD_MAP_ROWS}}
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Content Clusters -->
+  <div class="section-title" style="font-size: 18px; margin-top: 32px;">Recommended Content Clusters</div>
+  <div class="section-subtitle">Group related pages into pillar/cluster structure for topic authority</div>
+  <!-- POPULATE: cluster cards.
+       <div class="cluster">
+         <div class="cluster-title">[Cluster Theme]</div>
+         <div class="cluster-pages">
+           <span class="cluster-page pillar">/pillar-page (Pillar)</span>
+           <span class="cluster-page">/supporting-page-1</span>
+           <span class="cluster-page">/supporting-page-2</span>
+         </div>
+       </div>
+  -->
+  {{CONTENT_CLUSTERS}}
+
+  <!-- Content Gap Recommendations -->
+  <div class="section-title" style="font-size: 18px; margin-top: 32px;">Content Gap Recommendations</div>
+  <div class="section-subtitle">Suggested new pages and topics based on what's missing</div>
+  <!-- POPULATE: action items or finding items for content gap recommendations -->
+  {{CONTENT_GAPS}}
+
+</div>
+</div>
+
+<!-- ==================== TAB 6: INTERNAL LINKING ==================== -->
+<div id="tab-linking" class="tab-content">
+<div class="container">
+
+  <div class="section-title">Internal Linking Analysis</div>
+  <div class="section-subtitle">Link equity distribution, orphan pages, and linking opportunities</div>
+
+  <!-- Linking Stats -->
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-value">{{TOTAL_INTERNAL_LINKS}}</div>
+      <div class="stat-label">Total Internal Links</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">{{ORPHAN_PAGES}}</div>
+      <div class="stat-label">Orphan Pages</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">{{DEAD_END_PAGES}}</div>
+      <div class="stat-label">Dead-End Pages</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">{{AVG_LINKS_PER_PAGE}}</div>
+      <div class="stat-label">Avg Links/Page</div>
+    </div>
+  </div>
+
+  <!-- Link Equity Distribution -->
+  <div class="section-title" style="font-size: 18px;">Link Equity Distribution</div>
+  <div class="section-subtitle">How internal link juice is distributed across pages</div>
+  <div class="card" style="overflow-x: auto; padding: 0;">
+    <table class="page-table">
+      <thead>
+        <tr>
+          <th>Page</th>
+          <th>Incoming Internal Links</th>
+          <th>Outgoing Internal Links</th>
+          <th>External Links</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- POPULATE: one row per page showing link counts.
+             <tr>
+               <td><span class="page-url">/page</span></td>
+               <td>5</td>
+               <td>3</td>
+               <td>2</td>
+               <td><span class="badge badge-pass">Healthy</span></td>
+             </tr>
+        -->
+        {{LINK_EQUITY_ROWS}}
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Orphan Pages -->
+  <div class="section-title" style="font-size: 18px; margin-top: 32px;">Orphan Pages</div>
+  <div class="section-subtitle">Pages receiving zero internal links from other audited pages</div>
+  <!-- POPULATE: List pages that receive 0 internal links, with recommendations -->
+  {{ORPHAN_PAGES_DETAIL}}
+
+  <!-- Suggested Internal Links -->
+  <div class="section-title" style="font-size: 18px; margin-top: 32px;">Suggested Internal Links</div>
+  <div class="section-subtitle">Specific linking opportunities to improve equity distribution</div>
+  <!-- POPULATE: action items for specific link recommendations.
+       <div class="action-item">
+         <div class="action-number">1</div>
+         <div class="action-content">
+           <div class="action-title">Link from /blog/topic-a to /services/topic-a-service</div>
+           <div class="action-desc">The blog post discusses [topic] but doesn't link to the service page covering it in depth.</div>
+         </div>
+         <span class="badge badge-medium">Medium</span>
+       </div>
+  -->
+  {{SUGGESTED_LINKS}}
+
+</div>
+</div>
+
+<!-- ==================== TAB 7: ACTION PLAN ==================== -->
+<div id="tab-actions" class="tab-content">
+<div class="container">
+
+  <div class="section-title">Prioritized Action Plan</div>
+  <div class="section-subtitle">Every recommendation ranked by impact, grouped by effort level</div>
+
+  <!-- Quick Wins -->
+  <div class="section-title" style="font-size: 18px; color: var(--green);">Quick Wins <span style="font-size: 14px; color: var(--text-muted); font-weight: 400;">&mdash; less than 1 hour each</span></div>
+  <div style="margin-bottom: 24px;">
+    <!-- POPULATE: easy, high-impact fixes as action-item divs -->
+    {{QUICK_WINS}}
+  </div>
+
+  <!-- High Impact -->
+  <div class="section-title" style="font-size: 18px; color: var(--orange);">High Impact <span style="font-size: 14px; color: var(--text-muted); font-weight: 400;">&mdash; 1-4 hours each</span></div>
+  <div style="margin-bottom: 24px;">
+    <!-- POPULATE: more involved but very impactful changes as action-item divs -->
+    {{HIGH_IMPACT_ACTIONS}}
+  </div>
+
+  <!-- Strategic Initiatives -->
+  <div class="section-title" style="font-size: 18px; color: var(--purple);">Strategic Initiatives <span style="font-size: 14px; color: var(--text-muted); font-weight: 400;">&mdash; ongoing</span></div>
+  <div style="margin-bottom: 24px;">
+    <!-- POPULATE: long-term strategy items as action-item divs -->
+    {{STRATEGIC_ACTIONS}}
+  </div>
+
+  <!-- Full Checklist -->
+  <div class="section-title" style="font-size: 18px; margin-top: 32px;">Full Implementation Checklist</div>
+  <div class="section-subtitle">Every actionable recommendation in one checklist</div>
+  <div class="card">
+    <!-- POPULATE: Every recommendation as a checklist-item.
+         <div class="checklist-item">
+           <div class="check-icon fail">&#10007;</div>
+           <div class="check-text">[Action to take]</div>
+         </div>
+    -->
+    {{FULL_CHECKLIST}}
+  </div>
+
+</div>
+</div>
+
+<script>
+function switchTab(tabId) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + tabId).classList.add('active');
+  event.target.closest('.tab-btn').classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// Collapsible panels
+document.querySelectorAll('.collapsible-header').forEach(header => {
+  header.addEventListener('click', () => {
+    header.closest('.collapsible').classList.toggle('open');
+  });
+});
+</script>
+
+</body>
+</html>

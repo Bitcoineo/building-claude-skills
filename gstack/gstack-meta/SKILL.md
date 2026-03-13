@@ -3,11 +3,12 @@ name: gstack-meta
 description: >-
   Orchestrate the gstack skill suite for end-to-end software development
   workflows. Routes to the correct gstack skill based on user intent: plan
-  review (CEO or eng), code review, shipping, QA testing, browser automation,
-  cookie setup, and retrospectives. Use when user asks "which gstack skill
-  should I use", "help me with gstack", "what's the right workflow", or
-  needs guidance choosing between similar gstack skills. Do NOT use for
-  executing individual skills directly — route to the specific skill instead.
+  review (CEO or eng), architecture specification, code review, shipping, QA
+  testing, browser automation, cookie setup, and retrospectives. Use when user
+  asks "which gstack skill should I use", "help me with gstack", "what's the
+  right workflow", or needs guidance choosing between similar gstack skills.
+  Do NOT use for executing individual skills directly — route to the specific
+  skill instead.
 allowed-tools:
   - Read
   - Glob
@@ -17,7 +18,7 @@ allowed-tools:
 
 # Gstack Workflow Orchestrator
 
-Guide the user through the gstack skill suite — 8 specialized skills that turn Claude Code into a team of engineering specialists. This meta-skill helps users choose the right skill, chain skills into workflows, and avoid common misrouting.
+Guide the user through the gstack skill suite — 9 specialized skills that turn Claude Code into a team of engineering specialists. This meta-skill helps users choose the right skill, chain skills into workflows, and avoid common misrouting.
 
 ## The Gstack Suite
 
@@ -25,6 +26,7 @@ Guide the user through the gstack skill suite — 8 specialized skills that turn
 |-------|------|-------------|
 | /plan-ceo-review | CEO/founder brain | Challenge the plan itself — is this the right thing to build? |
 | /plan-eng-review | Eng manager brain | Lock in the execution plan — architecture, tests, edge cases |
+| /architect | Solutions architect brain | Lock in HOW to build it — ADRs, schemas, contracts, build sequence |
 | /review | Staff engineer brain | Pre-landing structural review of code diff |
 | /ship | Release engineer brain | Automated merge → test → version → changelog → PR |
 | /qa | QA lead brain | Systematic web app testing with health scores |
@@ -42,10 +44,11 @@ When the user's intent is ambiguous, determine the correct skill by asking:
    - Testing → Step 4
    - Reflection → /retro
 
-2. **What level of plan review?**
+2. **What level of plan review or design?**
    - Challenge the vision, find the 10-star product → /plan-ceo-review
-   - Lock in the implementation details → /plan-eng-review
-   - If unsure: "Do you want to challenge WHAT to build, or nail down HOW to build it?"
+   - Lock in the execution plan (architecture, tests, edge cases) → /plan-eng-review
+   - Lock in implementation decisions (schemas, contracts, build sequence) → /architect
+   - If unsure: "Do you want to challenge WHAT to build, nail down the PLAN, or lock in HOW to implement it?"
 
 3. **What stage is the code at?**
    - Written but not reviewed → /review
@@ -64,16 +67,17 @@ For the complete routing decision tree and disambiguation rules, consult `refere
 ### Full Development Cycle
 
 ```
-PLAN → IMPLEMENT → REVIEW → SHIP → QA → RETRO
+PLAN → ARCHITECT → IMPLEMENT → REVIEW → SHIP → QA → RETRO
 ```
 
 1. Start with /plan-ceo-review for new features (challenges the plan)
-2. Follow with /plan-eng-review (locks in implementation details)
-3. Implement the code
-4. Run /review for pre-landing structural review
-5. Run /ship to merge, test, version, and create PR
-6. Run /qa to verify the deployed feature works correctly
-7. Run /retro at the end of the week to analyze the team's output
+2. Follow with /plan-eng-review (locks in execution plan)
+3. Run /architect to lock in implementation decisions (schemas, contracts, build sequence)
+4. Implement the code (following the architect specification)
+5. Run /review for pre-landing structural review
+6. Run /ship to merge, test, version, and create PR
+7. Run /qa to verify the deployed feature works correctly
+8. Run /retro at the end of the week to analyze the team's output
 
 ### Quick Ship (Small Changes)
 
@@ -103,6 +107,8 @@ COOKIES → QA → BROWSE (for specific issues)
 | Using /browse instead of /qa | "I just want to test" | /qa produces a structured report. /browse is for ad-hoc page interactions |
 | Running /retro with no commits | Window has no activity | Suggest a different time window: "/retro 14d" or "/retro 30d" |
 | Using /plan-ceo-review for a bug fix | Over-scoping | Bug fixes need /plan-eng-review (HOLD SCOPE) not CEO-level questioning |
+| Skipping /architect for large features | "I know how to build it" | Features touching 5+ files benefit from locked decisions. Unresolved decisions become bugs mid-implementation |
+| Using /architect for small changes | Over-process | Bug fixes and small features go straight from /plan-eng-review to implementation |
 
 ## Improvement Patterns
 
@@ -120,6 +126,7 @@ Key takeaways:
 **"The wrong skill activated"**
 Check the routing table above. If skills are misrouting, the user may need to be more specific in their request. Key disambiguation phrases:
 - "Review my plan" → plan-ceo-review or plan-eng-review
+- "Architect this" or "write a tech spec" → architect
 - "Review this PR" or "review this code" → review
 - "Ship it" → ship
 - "Test this site" → qa
@@ -128,6 +135,7 @@ Check the routing table above. If skills are misrouting, the user may need to be
 **"I don't know which review to use"**
 Ask: "Are you reviewing a plan (what to build) or code (what was built)?"
 - Plan → /plan-ceo-review (vision) or /plan-eng-review (execution)
+- Architecture → /architect (implementation decisions)
 - Code → /review
 
 **"The skill references tools I don't have"**
