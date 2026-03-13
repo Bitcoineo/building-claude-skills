@@ -1,0 +1,1272 @@
+[
+  {
+    "id": "brw-01",
+    "query": "open https://app.example.com and click the login button",
+    "expected": "browse",
+    "difficulty": "easy",
+    "notes": "exact URL + interaction, textbook browse command",
+    "set": "test",
+    "predicted": "browse",
+    "correct": true
+  },
+  {
+    "id": "brw-02",
+    "query": "take a screenshot of the dashboard at localhost:3000",
+    "expected": "browse",
+    "difficulty": "easy",
+    "notes": "screenshot is a core browse action",
+    "set": "train",
+    "predicted": "browse",
+    "correct": true
+  },
+  {
+    "id": "brw-03",
+    "query": "navigate to the settings page and check what's in the dropdown",
+    "expected": "browse",
+    "difficulty": "easy",
+    "notes": "navigate + interact, clear single-task browse request",
+    "set": "test",
+    "predicted": "browse",
+    "correct": true
+  },
+  {
+    "id": "brw-04",
+    "query": "check if the modal works correctly on a 375px mobile viewport",
+    "expected": "browse",
+    "difficulty": "medium",
+    "notes": "responsive layout check, natural developer phrasing",
+    "set": "test",
+    "predicted": "browse",
+    "correct": true
+  },
+  {
+    "id": "brw-05",
+    "query": "what does the 404 error page look like right now?",
+    "expected": "browse",
+    "difficulty": "medium",
+    "notes": "visual verification of a single page state",
+    "set": "train",
+    "predicted": "browse",
+    "correct": true
+  },
+  {
+    "id": "brw-06",
+    "query": "verify the deployment went through - just load the homepage and confirm the new banner is there",
+    "expected": "browse",
+    "difficulty": "medium",
+    "notes": "deployment verification, single assertion",
+    "set": "train",
+    "predicted": "browse",
+    "correct": true
+  },
+  {
+    "id": "brw-07",
+    "query": "dogfood the file upload - drag a PDF onto the dropzone and see if it accepts it",
+    "expected": "browse",
+    "difficulty": "medium",
+    "notes": "dogfood phrasing but single-feature interaction, not full QA sweep",
+    "set": "train",
+    "predicted": "browse",
+    "correct": true
+  },
+  {
+    "id": "brw-08",
+    "query": "verify the signup flow",
+    "expected": "browse",
+    "difficulty": "hard",
+    "notes": "ambiguous - could be qa, but 'verify' + single flow leans browse",
+    "set": "train",
+    "predicted": "browse",
+    "correct": true
+  },
+  {
+    "id": "brw-09",
+    "query": "test the password reset feature and file a bug if it's broken",
+    "expected": "browse",
+    "difficulty": "hard",
+    "notes": "'test' could suggest qa but scoped to one feature with evidence-gathering intent",
+    "set": "train",
+    "predicted": "browse",
+    "correct": true
+  },
+  {
+    "id": "brw-10",
+    "query": "can you check whether the search autocomplete still fires after the refactor?",
+    "expected": "browse",
+    "difficulty": "hard",
+    "notes": "post-refactor spot check, single feature, but 'check' is ambiguous",
+    "set": "test",
+    "predicted": "browse",
+    "correct": true
+  },
+  {
+    "id": "brw-11",
+    "query": "do a full systematic pass of the checkout flow on staging and report back",
+    "expected": "qa",
+    "difficulty": "medium",
+    "notes": "near-miss: 'full systematic' signals qa, not ad-hoc browsing",
+    "set": "train",
+    "predicted": "qa",
+    "correct": true
+  },
+  {
+    "id": "brw-12",
+    "query": "I need to import my Arc cookies before I can test the admin dashboard",
+    "expected": "setup-browser-cookies",
+    "difficulty": "medium",
+    "notes": "near-miss: explicitly wants cookie import, not browsing yet",
+    "set": "train",
+    "predicted": "setup-browser-cookies",
+    "correct": true
+  },
+  {
+    "id": "brw-13",
+    "query": "write a script to hit the /api/users endpoint and check the response shape",
+    "expected": "none",
+    "difficulty": "medium",
+    "notes": "near-miss: API testing, skill description explicitly excludes this",
+    "set": "train",
+    "predicted": "none",
+    "correct": true
+  },
+  {
+    "id": "meta-01",
+    "query": "which gstack skill should I use?",
+    "expected": "gstack-meta",
+    "difficulty": "easy",
+    "notes": "exact trigger phrase from skill description",
+    "set": "test",
+    "predicted": "gstack-meta",
+    "correct": true
+  },
+  {
+    "id": "meta-02",
+    "query": "help me with gstack",
+    "expected": "gstack-meta",
+    "difficulty": "easy",
+    "notes": "exact trigger phrase from skill description",
+    "set": "test",
+    "predicted": "gstack-meta",
+    "correct": true
+  },
+  {
+    "id": "meta-03",
+    "query": "what's the right workflow here?",
+    "expected": "gstack-meta",
+    "difficulty": "easy",
+    "notes": "close paraphrase of trigger phrase",
+    "set": "train",
+    "predicted": "gstack-meta",
+    "correct": true
+  },
+  {
+    "id": "meta-04",
+    "query": "what's the right workflow for shipping a feature end to end?",
+    "expected": "gstack-meta",
+    "difficulty": "medium",
+    "notes": "asking about end-to-end workflow guidance",
+    "set": "train",
+    "predicted": "gstack-meta",
+    "correct": true
+  },
+  {
+    "id": "meta-05",
+    "query": "I'm confused about which review skill to use - should I do plan review or code review?",
+    "expected": "gstack-meta",
+    "difficulty": "medium",
+    "notes": "explicitly asking for help choosing between similar gstack skills",
+    "set": "train",
+    "predicted": "gstack-meta",
+    "correct": true
+  },
+  {
+    "id": "meta-06",
+    "query": "walk me through all the gstack skills and when to use each one",
+    "expected": "gstack-meta",
+    "difficulty": "medium",
+    "notes": "explicit request for gstack skill suite overview",
+    "set": "train",
+    "predicted": "gstack-meta",
+    "correct": true
+  },
+  {
+    "id": "meta-07",
+    "query": "I have a new feature branch ready - what should my process look like from here?",
+    "expected": "gstack-meta",
+    "difficulty": "medium",
+    "notes": "asking about process/workflow guidance",
+    "set": "train",
+    "predicted": "gstack-meta",
+    "correct": true
+  },
+  {
+    "id": "meta-08",
+    "query": "how should I approach this?",
+    "expected": "gstack-meta",
+    "difficulty": "hard",
+    "notes": "very ambiguous - could be general help, but in gstack context maps to workflow guidance",
+    "set": "test",
+    "predicted": "none",
+    "correct": false
+  },
+  {
+    "id": "meta-09",
+    "query": "not sure if I should QA first or get a code review - what do you recommend?",
+    "expected": "gstack-meta",
+    "difficulty": "hard",
+    "notes": "asking for skill routing recommendation between two gstack skills",
+    "set": "train",
+    "predicted": "gstack-meta",
+    "correct": true
+  },
+  {
+    "id": "meta-10",
+    "query": "what's the best way to handle this before merging?",
+    "expected": "gstack-meta",
+    "difficulty": "hard",
+    "notes": "ambiguous pre-merge guidance request",
+    "set": "test",
+    "predicted": "none",
+    "correct": false
+  },
+  {
+    "id": "meta-11",
+    "query": "CEO review my plan - I want to pressure-test the direction before we build",
+    "expected": "plan-ceo-review",
+    "difficulty": "medium",
+    "notes": "near-miss: knows exactly what they want, should trigger plan-ceo-review directly",
+    "set": "train",
+    "predicted": "plan-ceo-review",
+    "correct": true
+  },
+  {
+    "id": "meta-12",
+    "query": "everything looks good, let's ship it",
+    "expected": "ship",
+    "difficulty": "medium",
+    "notes": "near-miss: clear intent to execute, should trigger ship",
+    "set": "train",
+    "predicted": "ship",
+    "correct": true
+  },
+  {
+    "id": "meta-13",
+    "query": "how do I set up GitHub Actions to auto-deploy on merge?",
+    "expected": "none",
+    "difficulty": "medium",
+    "notes": "near-miss: asking about a non-gstack tool/workflow",
+    "set": "train",
+    "predicted": "none",
+    "correct": true
+  },
+  {
+    "id": "none-01",
+    "query": "fix the bug in the login controller",
+    "expected": "none",
+    "difficulty": "easy",
+    "notes": "direct coding task",
+    "set": "train",
+    "predicted": "none",
+    "correct": true
+  },
+  {
+    "id": "none-02",
+    "query": "add a created_at column to the users table",
+    "expected": "none",
+    "difficulty": "easy",
+    "notes": "database migration task",
+    "set": "test",
+    "predicted": "none",
+    "correct": true
+  },
+  {
+    "id": "none-03",
+    "query": "write unit tests for the payment service",
+    "expected": "none",
+    "difficulty": "easy",
+    "notes": "test writing task",
+    "set": "train",
+    "predicted": "none",
+    "correct": true
+  },
+  {
+    "id": "none-04",
+    "query": "refactor this function so it's easier to read",
+    "expected": "none",
+    "difficulty": "easy",
+    "notes": "code refactoring task",
+    "set": "test",
+    "predicted": "none",
+    "correct": true
+  },
+  {
+    "id": "none-05",
+    "query": "explain how the auth middleware works",
+    "expected": "none",
+    "difficulty": "easy",
+    "notes": "code explanation request",
+    "set": "train",
+    "predicted": "none",
+    "correct": true
+  },
+  {
+    "id": "none-06",
+    "query": "I'm getting a 500 error on /api/checkout - can you debug it?",
+    "expected": "none",
+    "difficulty": "medium",
+    "notes": "debugging task",
+    "set": "test",
+    "predicted": "none",
+    "correct": true
+  },
+  {
+    "id": "none-07",
+    "query": "rebase my branch onto main",
+    "expected": "none",
+    "difficulty": "medium",
+    "notes": "git operation that is not shipping",
+    "set": "test",
+    "predicted": "none",
+    "correct": true
+  },
+  {
+    "id": "none-08",
+    "query": "update the README with the new environment variables",
+    "expected": "none",
+    "difficulty": "medium",
+    "notes": "documentation update task",
+    "set": "train",
+    "predicted": "none",
+    "correct": true
+  },
+  {
+    "id": "none-09",
+    "query": "can you help me understand why this recursive function hits a stack overflow?",
+    "expected": "none",
+    "difficulty": "medium",
+    "notes": "technical explanation / debugging",
+    "set": "train",
+    "predicted": "none",
+    "correct": true
+  },
+  {
+    "id": "none-10",
+    "query": "rename the UserService class to AccountService across the whole codebase",
+    "expected": "none",
+    "difficulty": "medium",
+    "notes": "refactoring / file operation task",
+    "set": "test",
+    "predicted": "none",
+    "correct": true
+  },
+  {
+    "id": "pcr-01",
+    "query": "CEO review my plan",
+    "expected": "plan-ceo-review",
+    "difficulty": "easy",
+    "notes": "exact trigger phrase 'CEO review'",
+    "set": "train",
+    "predicted": "plan-ceo-review",
+    "correct": true
+  },
+  {
+    "id": "pcr-02",
+    "query": "can you do a plan review on this?",
+    "expected": "plan-ceo-review",
+    "difficulty": "easy",
+    "notes": "exact trigger phrase 'plan review'",
+    "set": "test",
+    "predicted": "plan-ceo-review",
+    "correct": true
+  },
+  {
+    "id": "pcr-03",
+    "query": "review my plan - is this good enough to move forward?",
+    "expected": "plan-ceo-review",
+    "difficulty": "easy",
+    "notes": "exact trigger phrase 'review my plan'",
+    "set": "train",
+    "predicted": "plan-ceo-review",
+    "correct": true
+  },
+  {
+    "id": "pcr-04",
+    "query": "am I building the right thing here? here's what I'm planning to ship",
+    "expected": "plan-ceo-review",
+    "difficulty": "medium",
+    "notes": "implies CEO-level 'right thing to build' question without trigger phrases",
+    "set": "test",
+    "predicted": "plan-ceo-review",
+    "correct": true
+  },
+  {
+    "id": "pcr-05",
+    "query": "challenge my assumptions on this approach - I want to make sure we're not missing something bigger",
+    "expected": "plan-ceo-review",
+    "difficulty": "medium",
+    "notes": "'challenge my assumptions' implies strategic rethink",
+    "set": "test",
+    "predicted": "plan-ceo-review",
+    "correct": true
+  },
+  {
+    "id": "pcr-06",
+    "query": "is this plan too small? should we be dreaming bigger with this feature",
+    "expected": "plan-ceo-review",
+    "difficulty": "medium",
+    "notes": "scope expansion framing without exact triggers",
+    "set": "test",
+    "predicted": "plan-ceo-review",
+    "correct": true
+  },
+  {
+    "id": "pcr-07",
+    "query": "what would the 10-star version of this product look like compared to what I've planned",
+    "expected": "plan-ceo-review",
+    "difficulty": "medium",
+    "notes": "references '10-star' framing which maps to CEO review mode",
+    "set": "train",
+    "predicted": "plan-ceo-review",
+    "correct": true
+  },
+  {
+    "id": "pcr-08",
+    "query": "am I even solving the right problem here",
+    "expected": "plan-ceo-review",
+    "difficulty": "hard",
+    "notes": "ambiguous - could be eng or CEO but 'right problem' implies strategic review",
+    "set": "train",
+    "predicted": "plan-ceo-review",
+    "correct": true
+  },
+  {
+    "id": "pcr-09",
+    "query": "gut check this plan for me - does the overall direction make sense",
+    "expected": "plan-ceo-review",
+    "difficulty": "hard",
+    "notes": "'overall direction' and gut check lean CEO but ambiguous",
+    "set": "train",
+    "predicted": "plan-ceo-review",
+    "correct": true
+  },
+  {
+    "id": "pcr-10",
+    "query": "I keep second-guessing whether we should build this at all - what do you think",
+    "expected": "plan-ceo-review",
+    "difficulty": "hard",
+    "notes": "existential build-vs-don't-build question implies CEO mode",
+    "set": "train",
+    "predicted": "plan-ceo-review",
+    "correct": true
+  },
+  {
+    "id": "pcr-11",
+    "query": "review my implementation plan - I want to make sure the architecture holds up under load",
+    "expected": "plan-eng-review",
+    "difficulty": "easy",
+    "notes": "near-miss: 'implementation plan' + 'architecture under load' targets eng review",
+    "set": "train",
+    "predicted": "plan-eng-review",
+    "correct": true
+  },
+  {
+    "id": "pcr-12",
+    "query": "check my data model and API design in this plan - are there any edge cases I missed",
+    "expected": "plan-eng-review",
+    "difficulty": "easy",
+    "notes": "near-miss: data model and edge cases are eng review territory",
+    "set": "test",
+    "predicted": "plan-eng-review",
+    "correct": true
+  },
+  {
+    "id": "pcr-13",
+    "query": "go through my plan and tell me if the test coverage strategy makes sense",
+    "expected": "plan-eng-review",
+    "difficulty": "medium",
+    "notes": "near-miss: test coverage is an eng review concern, not CEO",
+    "set": "train",
+    "predicted": "plan-eng-review",
+    "correct": true
+  },
+  {
+    "id": "per-01",
+    "query": "eng review this plan",
+    "expected": "plan-eng-review",
+    "difficulty": "easy",
+    "notes": "exact trigger phrase 'eng review'",
+    "set": "train",
+    "predicted": "plan-eng-review",
+    "correct": true
+  },
+  {
+    "id": "per-02",
+    "query": "technical plan review - here's my implementation doc",
+    "expected": "plan-eng-review",
+    "difficulty": "easy",
+    "notes": "exact trigger phrase 'technical plan review'",
+    "set": "test",
+    "predicted": "plan-eng-review",
+    "correct": true
+  },
+  {
+    "id": "per-03",
+    "query": "review my engineering plan before I start building",
+    "expected": "plan-eng-review",
+    "difficulty": "easy",
+    "notes": "exact trigger phrase 'review my engineering plan'",
+    "set": "train",
+    "predicted": "plan-eng-review",
+    "correct": true
+  },
+  {
+    "id": "per-04",
+    "query": "walk me through the edge cases in this plan - I want to make sure I haven't missed anything",
+    "expected": "plan-eng-review",
+    "difficulty": "medium",
+    "notes": "'edge cases' is a strong eng review signal",
+    "set": "test",
+    "predicted": "plan-eng-review",
+    "correct": true
+  },
+  {
+    "id": "per-05",
+    "query": "are my data models right for this? here's the schema I'm planning",
+    "expected": "plan-eng-review",
+    "difficulty": "medium",
+    "notes": "data model correctness is eng review territory",
+    "set": "train",
+    "predicted": "plan-eng-review",
+    "correct": true
+  },
+  {
+    "id": "per-06",
+    "query": "I want someone to poke holes in the architecture before I commit to it - data flow, dependencies, that kind of thing",
+    "expected": "plan-eng-review",
+    "difficulty": "medium",
+    "notes": "architecture + data flow language maps to eng review",
+    "set": "test",
+    "predicted": "plan-eng-review",
+    "correct": true
+  },
+  {
+    "id": "per-07",
+    "query": "does the sequencing in this plan make sense? I'm worried about the order of operations",
+    "expected": "plan-eng-review",
+    "difficulty": "medium",
+    "notes": "execution sequencing is an eng manager concern",
+    "set": "train",
+    "predicted": "plan-eng-review",
+    "correct": true
+  },
+  {
+    "id": "per-08",
+    "query": "does this plan have any test gaps I should address",
+    "expected": "plan-eng-review",
+    "difficulty": "hard",
+    "notes": "test gaps implies eng review but 'plan' could suggest CEO",
+    "set": "train",
+    "predicted": "plan-eng-review",
+    "correct": true
+  },
+  {
+    "id": "per-09",
+    "query": "look at this plan and tell me what could go wrong technically",
+    "expected": "plan-eng-review",
+    "difficulty": "hard",
+    "notes": "ambiguous - 'what could go wrong' could be CEO or eng, but 'technically' tips it",
+    "set": "train",
+    "predicted": "plan-eng-review",
+    "correct": true
+  },
+  {
+    "id": "per-10",
+    "query": "I think there are some performance assumptions in this plan that might not hold - can you check",
+    "expected": "plan-eng-review",
+    "difficulty": "hard",
+    "notes": "performance concerns are eng review but phrased ambiguously",
+    "set": "test",
+    "predicted": "plan-eng-review",
+    "correct": true
+  },
+  {
+    "id": "per-11",
+    "query": "is this the right problem to be solving right now given our roadmap",
+    "expected": "plan-ceo-review",
+    "difficulty": "medium",
+    "notes": "near-miss: roadmap prioritization and 'right problem' lean CEO review",
+    "set": "train",
+    "predicted": "plan-ceo-review",
+    "correct": true
+  },
+  {
+    "id": "per-12",
+    "query": "should we even be building this feature or is there a better way to solve the user need",
+    "expected": "plan-ceo-review",
+    "difficulty": "medium",
+    "notes": "near-miss: build-vs-don't and user need framing is CEO territory",
+    "set": "test",
+    "predicted": "plan-ceo-review",
+    "correct": true
+  },
+  {
+    "id": "per-13",
+    "query": "I want a critical review of this plan - are we thinking too small",
+    "expected": "plan-ceo-review",
+    "difficulty": "hard",
+    "notes": "near-miss: 'thinking too small' maps to scope expansion mode in CEO review",
+    "set": "test",
+    "predicted": "plan-ceo-review",
+    "correct": true
+  },
+  {
+    "id": "qa-01",
+    "query": "qa this site",
+    "expected": "qa",
+    "difficulty": "easy",
+    "notes": "exact trigger phrase from skill description",
+    "set": "test",
+    "predicted": "qa",
+    "correct": true
+  },
+  {
+    "id": "qa-02",
+    "query": "test this site and find bugs",
+    "expected": "qa",
+    "difficulty": "easy",
+    "notes": "exact trigger phrase from skill description",
+    "set": "train",
+    "predicted": "qa",
+    "correct": true
+  },
+  {
+    "id": "qa-03",
+    "query": "QA the staging environment",
+    "expected": "qa",
+    "difficulty": "easy",
+    "notes": "uppercase QA variant, exact trigger",
+    "set": "test",
+    "predicted": "qa",
+    "correct": true
+  },
+  {
+    "id": "qa-04",
+    "query": "dogfood the checkout flow and tell me if anything's broken",
+    "expected": "qa",
+    "difficulty": "medium",
+    "notes": "dogfood trigger with specific flow context",
+    "set": "test",
+    "predicted": "qa",
+    "correct": true
+  },
+  {
+    "id": "qa-05",
+    "query": "how's the quality of our staging site? anything obviously broken?",
+    "expected": "qa",
+    "difficulty": "medium",
+    "notes": "natural quality inquiry phrasing",
+    "set": "train",
+    "predicted": "qa",
+    "correct": true
+  },
+  {
+    "id": "qa-06",
+    "query": "can you do a quick smoke test on prod before we announce the launch?",
+    "expected": "qa",
+    "difficulty": "medium",
+    "notes": "smoke test maps to quick mode",
+    "set": "train",
+    "predicted": "qa",
+    "correct": true
+  },
+  {
+    "id": "qa-07",
+    "query": "run a regression on the homepage against yesterday's baseline",
+    "expected": "qa",
+    "difficulty": "medium",
+    "notes": "regression mode trigger, technical phrasing",
+    "set": "train",
+    "predicted": "qa",
+    "correct": true
+  },
+  {
+    "id": "qa-08",
+    "query": "review quality of the homepage",
+    "expected": "qa",
+    "difficulty": "hard",
+    "notes": "'review' could sound like code review but 'quality' + 'homepage' points to qa",
+    "set": "train",
+    "predicted": "qa",
+    "correct": true
+  },
+  {
+    "id": "qa-09",
+    "query": "give the new onboarding flow a once-over and flag anything that feels off",
+    "expected": "qa",
+    "difficulty": "hard",
+    "notes": "colloquial phrasing, no obvious trigger words",
+    "set": "train",
+    "predicted": "qa",
+    "correct": true
+  },
+  {
+    "id": "qa-10",
+    "query": "I want a full health check on app.example.com",
+    "expected": "qa",
+    "difficulty": "hard",
+    "notes": "health check is qa-adjacent but not an exact trigger phrase",
+    "set": "test",
+    "predicted": "qa",
+    "correct": true
+  },
+  {
+    "id": "qa-11",
+    "query": "just check if the login button on the homepage still works",
+    "expected": "browse",
+    "difficulty": "medium",
+    "notes": "near-miss: wants ONE specific check, not full QA - should trigger browse",
+    "set": "test",
+    "predicted": "browse",
+    "correct": true
+  },
+  {
+    "id": "qa-12",
+    "query": "review the PR I just pushed, looking for structural issues",
+    "expected": "review",
+    "difficulty": "medium",
+    "notes": "near-miss: 'review' means code review of a PR, not site QA",
+    "set": "train",
+    "predicted": "review",
+    "correct": true
+  },
+  {
+    "id": "qa-13",
+    "query": "write unit tests for the auth module",
+    "expected": "none",
+    "difficulty": "medium",
+    "notes": "near-miss: wants unit tests, not browser QA",
+    "set": "train",
+    "predicted": "none",
+    "correct": true
+  },
+  {
+    "id": "ret-01",
+    "query": "run a retro",
+    "expected": "retro",
+    "difficulty": "easy",
+    "notes": "exact trigger phrase from skill description",
+    "set": "test",
+    "predicted": "retro",
+    "correct": true
+  },
+  {
+    "id": "ret-02",
+    "query": "team retrospective",
+    "expected": "retro",
+    "difficulty": "easy",
+    "notes": "exact trigger phrase from skill description",
+    "set": "test",
+    "predicted": "retro",
+    "correct": true
+  },
+  {
+    "id": "ret-03",
+    "query": "engineering retro",
+    "expected": "retro",
+    "difficulty": "easy",
+    "notes": "exact trigger phrase from skill description",
+    "set": "test",
+    "predicted": "retro",
+    "correct": true
+  },
+  {
+    "id": "ret-04",
+    "query": "how productive were we this sprint?",
+    "expected": "retro",
+    "difficulty": "medium",
+    "notes": "natural phrasing, sprint productivity question maps to retro",
+    "set": "test",
+    "predicted": "retro",
+    "correct": true
+  },
+  {
+    "id": "ret-05",
+    "query": "analyze our commit patterns from this week",
+    "expected": "retro",
+    "difficulty": "medium",
+    "notes": "commit history analysis is a core retro feature",
+    "set": "train",
+    "predicted": "retro",
+    "correct": true
+  },
+  {
+    "id": "ret-06",
+    "query": "can you break down what each team member shipped this week?",
+    "expected": "retro",
+    "difficulty": "medium",
+    "notes": "per-person contributions breakdown is explicit retro feature",
+    "set": "train",
+    "predicted": "retro",
+    "correct": true
+  },
+  {
+    "id": "ret-07",
+    "query": "how did we do this week as a team?",
+    "expected": "retro",
+    "difficulty": "medium",
+    "notes": "close paraphrase of trigger phrase",
+    "set": "train",
+    "predicted": "retro",
+    "correct": true
+  },
+  {
+    "id": "ret-08",
+    "query": "weekly review",
+    "expected": "retro",
+    "difficulty": "hard",
+    "notes": "ambiguous - could sound like plan review, but retro owns 'weekly review' phrase",
+    "set": "train",
+    "predicted": "retro",
+    "correct": true
+  },
+  {
+    "id": "ret-09",
+    "query": "let's look back at what got merged this week and see how we did",
+    "expected": "retro",
+    "difficulty": "hard",
+    "notes": "retrospective intent buried in natural language, no trigger keywords",
+    "set": "train",
+    "predicted": "retro",
+    "correct": true
+  },
+  {
+    "id": "ret-10",
+    "query": "I want to understand our team's velocity and code quality trends over the last few sprints",
+    "expected": "retro",
+    "difficulty": "hard",
+    "notes": "trend tracking is a retro feature, but phrasing sounds analytical/strategic",
+    "set": "train",
+    "predicted": "retro",
+    "correct": true
+  },
+  {
+    "id": "ret-11",
+    "query": "we've been shipping a lot but I feel like we're losing direction - can you help me think through whether we should pivot or stay the course?",
+    "expected": "plan-ceo-review",
+    "difficulty": "hard",
+    "notes": "near-miss: reflects on work but wants strategic direction rethink, not commit analysis",
+    "set": "train",
+    "predicted": "plan-ceo-review",
+    "correct": true
+  },
+  {
+    "id": "ret-12",
+    "query": "can you review the last three PRs I merged this week?",
+    "expected": "review",
+    "difficulty": "medium",
+    "notes": "near-miss: says 'review' and references recent work, but means code review of specific PRs",
+    "set": "train",
+    "predicted": "review",
+    "correct": true
+  },
+  {
+    "id": "ret-13",
+    "query": "how is Sarah performing compared to the rest of the team? I need to write her review",
+    "expected": "none",
+    "difficulty": "medium",
+    "notes": "near-miss: individual performance review explicitly excluded from retro",
+    "set": "test",
+    "predicted": "none",
+    "correct": true
+  },
+  {
+    "id": "rev-01",
+    "query": "review this PR",
+    "expected": "review",
+    "difficulty": "easy",
+    "notes": "exact trigger phrase from skill description",
+    "set": "train",
+    "predicted": "review",
+    "correct": true
+  },
+  {
+    "id": "rev-02",
+    "query": "can you do a code review?",
+    "expected": "review",
+    "difficulty": "easy",
+    "notes": "straightforward code review request",
+    "set": "train",
+    "predicted": "review",
+    "correct": true
+  },
+  {
+    "id": "rev-03",
+    "query": "pre-landing review please",
+    "expected": "review",
+    "difficulty": "easy",
+    "notes": "exact trigger phrase from skill description",
+    "set": "train",
+    "predicted": "review",
+    "correct": true
+  },
+  {
+    "id": "rev-04",
+    "query": "check my changes before I push",
+    "expected": "review",
+    "difficulty": "medium",
+    "notes": "natural phrasing implying pre-merge review",
+    "set": "test",
+    "predicted": "review",
+    "correct": true
+  },
+  {
+    "id": "rev-05",
+    "query": "anything wrong with this diff?",
+    "expected": "review",
+    "difficulty": "medium",
+    "notes": "casual phrasing focusing on the diff artifact",
+    "set": "test",
+    "predicted": "review",
+    "correct": true
+  },
+  {
+    "id": "rev-06",
+    "query": "take a look at what I've changed and see if it's mergeable",
+    "expected": "review",
+    "difficulty": "medium",
+    "notes": "indirect phrasing but clearly about code changes pre-merge",
+    "set": "test",
+    "predicted": "review",
+    "correct": true
+  },
+  {
+    "id": "rev-07",
+    "query": "is this safe to merge into main?",
+    "expected": "review",
+    "difficulty": "medium",
+    "notes": "merge-safety framing without saying 'review'",
+    "set": "train",
+    "predicted": "review",
+    "correct": true
+  },
+  {
+    "id": "rev-08",
+    "query": "look over what I've done so far",
+    "expected": "review",
+    "difficulty": "hard",
+    "notes": "ambiguous - could be plan review or code review, no explicit artifact",
+    "set": "train",
+    "predicted": "none",
+    "correct": false
+  },
+  {
+    "id": "rev-09",
+    "query": "does this look right to you?",
+    "expected": "review",
+    "difficulty": "hard",
+    "notes": "highly ambiguous - minimal signal, assumes context of code changes",
+    "set": "test",
+    "predicted": "none",
+    "correct": false
+  },
+  {
+    "id": "rev-10",
+    "query": "I think I'm done with this feature, can you sanity check it?",
+    "expected": "review",
+    "difficulty": "hard",
+    "notes": "completion signal could also trigger ship, but asks for a check not shipping",
+    "set": "train",
+    "predicted": "review",
+    "correct": true
+  },
+  {
+    "id": "rev-11",
+    "query": "looks good to me, ship it and open a PR",
+    "expected": "ship",
+    "difficulty": "easy",
+    "notes": "near-miss: explicitly requests shipping workflow, not a review",
+    "set": "train",
+    "predicted": "ship",
+    "correct": true
+  },
+  {
+    "id": "rev-12",
+    "query": "review my implementation plan for the auth refactor - I want to check the data flow and edge cases",
+    "expected": "plan-eng-review",
+    "difficulty": "medium",
+    "notes": "near-miss: uses 'review' but is about a plan with eng concerns, not code diff",
+    "set": "test",
+    "predicted": "plan-eng-review",
+    "correct": true
+  },
+  {
+    "id": "rev-13",
+    "query": "review this plan and tell me if we're thinking too small",
+    "expected": "plan-ceo-review",
+    "difficulty": "medium",
+    "notes": "near-miss: 'review' + scope expansion framing maps to CEO review, not code review",
+    "set": "train",
+    "predicted": "plan-ceo-review",
+    "correct": true
+  },
+  {
+    "id": "sbc-01",
+    "query": "import my cookies",
+    "expected": "setup-browser-cookies",
+    "difficulty": "easy",
+    "notes": "exact trigger phrase from skill description",
+    "set": "train",
+    "predicted": "setup-browser-cookies",
+    "correct": true
+  },
+  {
+    "id": "sbc-02",
+    "query": "set up browser session for testing",
+    "expected": "setup-browser-cookies",
+    "difficulty": "easy",
+    "notes": "exact trigger phrase from skill description",
+    "set": "train",
+    "predicted": "setup-browser-cookies",
+    "correct": true
+  },
+  {
+    "id": "sbc-03",
+    "query": "import cookies from Chrome into the headless browser",
+    "expected": "setup-browser-cookies",
+    "difficulty": "easy",
+    "notes": "explicit source (Chrome) and destination mentioned",
+    "set": "test",
+    "predicted": "setup-browser-cookies",
+    "correct": true
+  },
+  {
+    "id": "sbc-04",
+    "query": "I need to test pages that require login - can you get my session cookies in?",
+    "expected": "setup-browser-cookies",
+    "difficulty": "medium",
+    "notes": "describes the need (auth pages) and implies cookie import solution",
+    "set": "train",
+    "predicted": "setup-browser-cookies",
+    "correct": true
+  },
+  {
+    "id": "sbc-05",
+    "query": "get my Arc sessions into the headless browser so I can test the admin panel",
+    "expected": "setup-browser-cookies",
+    "difficulty": "medium",
+    "notes": "names a supported browser (Arc), authenticated testing context",
+    "set": "test",
+    "predicted": "setup-browser-cookies",
+    "correct": true
+  },
+  {
+    "id": "sbc-06",
+    "query": "sync my Brave cookies over before we start testing",
+    "expected": "setup-browser-cookies",
+    "difficulty": "medium",
+    "notes": "names a supported browser (Brave), sync/import intent",
+    "set": "train",
+    "predicted": "setup-browser-cookies",
+    "correct": true
+  },
+  {
+    "id": "sbc-07",
+    "query": "the site is behind auth - can you pull in my browser cookies so we can actually test it?",
+    "expected": "setup-browser-cookies",
+    "difficulty": "medium",
+    "notes": "problem-first phrasing, solution (cookie import) implied",
+    "set": "train",
+    "predicted": "setup-browser-cookies",
+    "correct": true
+  },
+  {
+    "id": "sbc-08",
+    "query": "log me in so I can test the admin panel",
+    "expected": "setup-browser-cookies",
+    "difficulty": "hard",
+    "notes": "ambiguous - could be browse doing manual login, but import cookies is the right solution for existing sessions",
+    "set": "train",
+    "predicted": "setup-browser-cookies",
+    "correct": true
+  },
+  {
+    "id": "sbc-09",
+    "query": "I'm already logged in on my real browser, can you use that session?",
+    "expected": "setup-browser-cookies",
+    "difficulty": "hard",
+    "notes": "describes the cookie import use case indirectly, no explicit 'import' keyword",
+    "set": "test",
+    "predicted": "setup-browser-cookies",
+    "correct": true
+  },
+  {
+    "id": "sbc-10",
+    "query": "how do I get authenticated access to the app for headless testing?",
+    "expected": "setup-browser-cookies",
+    "difficulty": "hard",
+    "notes": "question form, no action words - but the answer is setup-browser-cookies",
+    "set": "test",
+    "predicted": "setup-browser-cookies",
+    "correct": true
+  },
+  {
+    "id": "sbc-11",
+    "query": "go to the admin panel login page and enter my credentials manually",
+    "expected": "browse",
+    "difficulty": "medium",
+    "notes": "near-miss: wants manual login interaction via browse, not cookie import",
+    "set": "train",
+    "predicted": "browse",
+    "correct": true
+  },
+  {
+    "id": "sbc-12",
+    "query": "run a full QA pass on the dashboard - I'm logged in on Chrome so use those cookies",
+    "expected": "qa",
+    "difficulty": "medium",
+    "notes": "near-miss: end goal is QA, cookie setup is just a prerequisite mentioned in passing",
+    "set": "test",
+    "predicted": "setup-browser-cookies",
+    "correct": false
+  },
+  {
+    "id": "sbc-13",
+    "query": "clear all the cookies from the headless browser session",
+    "expected": "none",
+    "difficulty": "medium",
+    "notes": "near-miss: skill description explicitly says do NOT use for clearing cookies",
+    "set": "train",
+    "predicted": "none",
+    "correct": true
+  },
+  {
+    "id": "shp-01",
+    "query": "ship it",
+    "expected": "ship",
+    "difficulty": "easy",
+    "notes": "canonical exact trigger phrase",
+    "set": "train",
+    "predicted": "ship",
+    "correct": true
+  },
+  {
+    "id": "shp-02",
+    "query": "deploy this",
+    "expected": "ship",
+    "difficulty": "easy",
+    "notes": "exact trigger phrase from skill description",
+    "set": "test",
+    "predicted": "ship",
+    "correct": true
+  },
+  {
+    "id": "shp-03",
+    "query": "create a release",
+    "expected": "ship",
+    "difficulty": "easy",
+    "notes": "exact trigger phrase from skill description",
+    "set": "test",
+    "predicted": "ship",
+    "correct": true
+  },
+  {
+    "id": "shp-04",
+    "query": "push this up and make a PR",
+    "expected": "ship",
+    "difficulty": "medium",
+    "notes": "natural phrasing describing the ship workflow steps",
+    "set": "test",
+    "predicted": "ship",
+    "correct": true
+  },
+  {
+    "id": "shp-05",
+    "query": "let's get this merged",
+    "expected": "ship",
+    "difficulty": "medium",
+    "notes": "merge intent without using ship vocabulary",
+    "set": "train",
+    "predicted": "ship",
+    "correct": true
+  },
+  {
+    "id": "shp-06",
+    "query": "go ahead and push, bump the version, and open a pull request",
+    "expected": "ship",
+    "difficulty": "medium",
+    "notes": "describes the ship workflow steps explicitly",
+    "set": "train",
+    "predicted": "ship",
+    "correct": true
+  },
+  {
+    "id": "shp-07",
+    "query": "this branch is ready, take it from here",
+    "expected": "ship",
+    "difficulty": "medium",
+    "notes": "readiness signal delegating the full workflow",
+    "set": "train",
+    "predicted": "ship",
+    "correct": true
+  },
+  {
+    "id": "shp-08",
+    "query": "this is done, take it from here",
+    "expected": "ship",
+    "difficulty": "hard",
+    "notes": "implies shipping without any shipping vocabulary",
+    "set": "test",
+    "predicted": "ship",
+    "correct": true
+  },
+  {
+    "id": "shp-09",
+    "query": "get this out the door",
+    "expected": "ship",
+    "difficulty": "hard",
+    "notes": "colloquial shipping idiom, no technical vocabulary",
+    "set": "test",
+    "predicted": "ship",
+    "correct": true
+  },
+  {
+    "id": "shp-10",
+    "query": "I'm happy with this, let's go",
+    "expected": "ship",
+    "difficulty": "hard",
+    "notes": "minimal signal - satisfaction + forward motion implies ship but is highly ambiguous",
+    "set": "train",
+    "predicted": "ship",
+    "correct": true
+  },
+  {
+    "id": "shp-11",
+    "query": "before I push, can you check this for any SQL issues?",
+    "expected": "review",
+    "difficulty": "medium",
+    "notes": "near-miss: push is mentioned but the ask is for a review check, not to ship",
+    "set": "test",
+    "predicted": "review",
+    "correct": true
+  },
+  {
+    "id": "shp-12",
+    "query": "can you QA this on staging before we deploy?",
+    "expected": "qa",
+    "difficulty": "medium",
+    "notes": "near-miss: pre-deploy but wants QA testing, not the ship workflow",
+    "set": "train",
+    "predicted": "qa",
+    "correct": true
+  },
+  {
+    "id": "shp-13",
+    "query": "what did we ship last week? I want to look back at the work",
+    "expected": "retro",
+    "difficulty": "medium",
+    "notes": "near-miss: mentions shipping but is retrospective, maps to retro skill",
+    "set": "train",
+    "predicted": "retro",
+    "correct": true
+  }
+]
